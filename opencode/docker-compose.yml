@@ -1,0 +1,19 @@
+services:
+  opencode:
+    container_name: opencode
+    image: ghcr.io/anomalyco/opencode:latest
+    volumes:
+      - "${CONFIG_PATH}:/root/.config/opencode/"
+    networks:
+      - "${NETWORK_NAME}"
+    environment:
+      - "OPENCODE_EXPERIMENTAL_PLAN_MODE=${OPENCODE_EXPERIMENTAL_PLAN_MODE}"
+    ports:
+      - "${HOST_PORT}:4096"
+    post_start:
+      - command: ["opencode", "serve", "--mdns=${MDNS}"]
+
+networks:
+  ollama:
+    external: true
+    name: ${NETWORK_NAME}

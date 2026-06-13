@@ -1,0 +1,14 @@
+services:
+  open-webui:
+    container_name: "open-webui"
+    image: ghcr.io/open-webui/open-webui:latest
+    ports:
+      - 11433:8080
+    volumes:
+      - ./owui-data:/app/backend/data
+    restart: unless-stopped
+
+networks:
+  ollama:
+    external: true
+    name: ollama
